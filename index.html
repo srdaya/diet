@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sr Daya Diet Plan - 74kg | 130g Protein</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-fire"></i>
+                    Sr Daya Diet Plan
+                </h1>
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <i class="fas fa-weight"></i>
+                        <span>74kg</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>130g Protein</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>₹190/day</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <div class="progress-card">
+                <h2>Today's Progress</h2>
+                <div class="progress-grid">
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <i class="fas fa-fire"></i>
+                            <span>Calories</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="calories-progress"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="calories-current">0</span>
+                            <span>/ 2250 kcal</span>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <i class="fas fa-dumbbell"></i>
+                            <span>Protein</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="protein-progress"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="protein-current">0</span>
+                            <span>/ 130g</span>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <i class="fas fa-rupee-sign"></i>
+                            <span>Cost</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="cost-progress"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="cost-current">₹0</span>
+                            <span>/ ₹190</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meals Section -->
+        <section class="meals-section">
+            <h2>Meal Plan</h2>
+            <div class="meals-container" id="meals-container">
+                <!-- Meals will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <button class="action-btn reset-btn" onclick="resetProgress()">
+                <i class="fas fa-redo"></i>
+                Reset Day
+            </button>
+            <button class="action-btn notes-btn" onclick="toggleNotes()">
+                <i class="fas fa-sticky-note"></i>
+                Notes
+            </button>
+        </section>
+
+        <!-- Notes Modal -->
+        <div class="modal" id="notes-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Diet Notes</h3>
+                    <button class="close-btn" onclick="toggleNotes()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="notes-content">
+                        <div class="note-item">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Soya always boiled & cooked (never raw)</span>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Curd only after workout = digestion + recovery boost</span>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Whey in morning = fastest absorption post-fasting</span>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Roti can be swapped with rice occasionally</span>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-tint"></i>
+                            <span>Hydration: 3–4L pani per day</span>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-bed"></i>
+                            <span>Sleep: 7–8 hrs zaroori for muscle growth</span>
+                        </div>
+                        <div class="note-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Workout time: 5:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
