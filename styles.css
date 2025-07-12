@@ -16,20 +16,36 @@ body {
 .app-container {
     max-width: 480px;
     margin: 0 auto;
-    background: #fff;
+    background: linear-gradient(135deg, #232526 0%, #414345 100%) !important;
     min-height: 100vh;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 30px 30px;
+}
+
+.app-container.stuck {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 
 /* Header Styles */
 .header {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    color: white;
+    background: linear-gradient(135deg, #232526 0%, #414345 100%) !important;
+    color: #fff !important;
     padding: 20px 0;
-    position: sticky;
-    top: 0;
     z-index: 100;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s, background 0.3s;
+}
+
+.sticky-header {
+    /* Remove all sticky/fixed styles */
+}
+
+@keyframes stickyDrop {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
 }
 
 .header-content {
@@ -43,6 +59,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #fff !important;
 }
 
 .app-title i {
@@ -60,64 +77,102 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.08) !important;
     padding: 10px;
     border-radius: 12px;
     backdrop-filter: blur(10px);
     flex: 1;
+    color: #fff !important;
 }
 
 .stat-item i {
     font-size: 16px;
     margin-bottom: 5px;
-    color: #ffd700;
+    color: #ffd700 !important;
 }
 
 .stat-item span {
     font-size: 12px;
     font-weight: 600;
     text-align: center;
+    color: #fff !important;
 }
 
 /* Progress Section */
 .progress-section {
-    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background: transparent;
+    /* Add margin to avoid overlap with header */
 }
 
 .progress-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: 0 !important;
+    padding: 14px 12px;
     color: white;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 6px 18px rgba(102, 126, 234, 0.18);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: border-radius 0.2s, box-shadow 0.2s;
+}
+
+.progress-card.stuck {
+    border-radius: 0 !important;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    right: 0;
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    border-radius: 48px 48px 0 0 !important;
+    z-index: 9999;
+    box-shadow: 0 2px 12px rgba(102, 126, 234, 0.18);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.progress-placeholder {
+    display: none;
+}
+
+.progress-card.stuck + .progress-placeholder {
+    display: block;
+    height: var(--progress-card-height, 0px);
+}
+
+.progress-section.stuck {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .progress-card h2 {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
 .progress-grid {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .progress-item {
     background: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 15px;
+    padding: 8px 8px 10px 8px;
+    border-radius: 10px;
     backdrop-filter: blur(10px);
 }
 
 .progress-label {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 4px;
     font-weight: 600;
+    font-size: 14px;
 }
 
 .progress-label i {
@@ -126,11 +181,11 @@ body {
 }
 
 .progress-bar {
-    height: 8px;
+    height: 6px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .progress-fill {
@@ -144,7 +199,7 @@ body {
 .progress-text {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
 }
 
@@ -162,7 +217,7 @@ body {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 20px;
-    color: #333;
+    color: #fff !important;
     text-align: center;
 }
 
@@ -173,7 +228,8 @@ body {
 }
 
 .meal-card {
-    background: white;
+    background: rgba(30, 30, 30, 0.98) !important;
+    color: #fff !important;
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
@@ -197,7 +253,7 @@ body {
 
 .meal-card.completed {
     border-color: #4CAF50;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #263238 0%, #37474f 100%) !important;
 }
 
 .meal-card.completed::before {
@@ -217,7 +273,7 @@ body {
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    color: #333;
+    color: #fff;
 }
 
 .meal-time i {
@@ -228,12 +284,12 @@ body {
 .meal-name {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #fff;
     margin-bottom: 5px;
 }
 
 .meal-description {
-    color: #666;
+    color: #fff;
     font-size: 14px;
     margin-bottom: 15px;
     line-height: 1.5;
@@ -247,11 +303,11 @@ body {
 }
 
 .macro-item {
-    background: #f8f9fa;
+    background: rgba(255,255,255,0.08) !important;
     padding: 10px;
     border-radius: 10px;
     text-align: center;
-    border: 1px solid #e9ecef;
+    border: 1px solid #333 !important;
 }
 
 .macro-item i {
@@ -266,13 +322,13 @@ body {
 
 .macro-label {
     font-size: 12px;
-    color: #666;
+    color: #fff;
     margin-bottom: 3px;
 }
 
 .macro-value {
     font-weight: 700;
-    color: #333;
+    color: #fff;
     font-size: 14px;
 }
 
@@ -493,13 +549,16 @@ body {
         gap: 8px;
     }
     
-    .progress-section,
-    .meals-section {
-        padding: 15px;
+    .progress-section {
+        top: 0;
     }
     
     .progress-card {
-        padding: 20px;
+        padding: 10px 6px;
+    }
+    
+    .progress-card h2 {
+        font-size: 15px;
     }
     
     .meal-card {
@@ -554,4 +613,18 @@ button:focus,
 .close-btn:focus {
     outline: 2px solid #667eea;
     outline-offset: 2px;
+} 
+
+.progress-card,
+.progress-card.stuck {
+    background: linear-gradient(135deg, #232526 0%, #414345 100%) !important;
+    color: #fff !important;
+}
+
+.progress-item {
+    background: rgba(255,255,255,0.08);
+}
+
+.progress-label {
+    color: #fff;
 } 

@@ -81,11 +81,56 @@ let currentProgress = {
     cost: 0
 };
 
+// Editable title logic
+function setupEditableTitle() {
+    const titleText = document.getElementById('diet-title-text');
+    const editBtn = document.getElementById('edit-title-btn');
+    const editInput = document.getElementById('edit-title-input');
+    const LS_KEY = 'dietAppTitle';
+
+    // Load from localStorage
+    const savedTitle = localStorage.getItem(LS_KEY);
+    if (savedTitle) {
+        titleText.textContent = savedTitle;
+    }
+
+    editBtn.addEventListener('click', function(e) {
+        editInput.value = titleText.textContent;
+        titleText.style.display = 'none';
+        editBtn.style.display = 'none';
+        editInput.style.display = 'inline-block';
+        editInput.focus();
+        editInput.select();
+    });
+
+    function saveTitle() {
+        const newTitle = editInput.value.trim() || 'Sr Daya Diet Plan';
+        titleText.textContent = newTitle;
+        localStorage.setItem(LS_KEY, newTitle);
+        editInput.style.display = 'none';
+        titleText.style.display = 'inline';
+        editBtn.style.display = 'inline-block';
+    }
+
+    editInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            saveTitle();
+        } else if (e.key === 'Escape') {
+            editInput.style.display = 'none';
+            titleText.style.display = 'inline';
+            editBtn.style.display = 'inline-block';
+        }
+    });
+    editInput.addEventListener('blur', saveTitle);
+}
+
 // Initialize App
 document.addEventListener('DOMContentLoaded', function() {
     loadProgress();
     renderMeals();
     updateProgressDisplay();
+    handleStickyProgressCard();
+    setupEditableTitle();
 });
 
 // Load progress from localStorage
@@ -411,3 +456,45 @@ function checkNewDay() {
 
 // Check for new day on app load
 checkNewDay(); 
+
+// Add stuck class to progress card when sticky
+function handleStickyProgressCard() {
+    const progressSection = document.querySelector('.progress-section');
+    const progressCard = document.querySelector('.progress-card');
+    const appContainer = document.querySelector('.app-container');
+    if (!progressSection || !progressCard || !appContainer) return;
+
+    // Create placeholder if not exists
+    let placeholder = progressCard.nextElementSibling;
+    if (!placeholder || !placeholder.classList.contains('progress-placeholder')) {
+        placeholder = document.createElement('div');
+        placeholder.className = 'progress-placeholder';
+        progressCard.parentNode.insertBefore(placeholder, progressCard.nextSibling);
+    }
+
+    function setPlaceholderHeight() {
+        const cardHeight = progressCard.offsetHeight;
+        placeholder.style.setProperty('--progress-card-height', cardHeight + 'px');
+    }
+
+    setPlaceholderHeight();
+    window.addEventListener('resize', setPlaceholderHeight);
+
+    const observer = new window.IntersectionObserver(
+        ([e]) => {
+            if (e.intersectionRatio < 1) {
+                progressCard.classList.add('stuck');
+                progressSection.classList.add('stuck');
+                appContainer.classList.add('stuck');
+                setPlaceholderHeight();
+            } else {
+                progressCard.classList.remove('stuck');
+                progressSection.classList.remove('stuck');
+                appContainer.classList.remove('stuck');
+                placeholder.style.setProperty('--progress-card-height', '0px');
+            }
+        },
+        { threshold: [1] }
+    );
+    observer.observe(progressSection);
+} 
